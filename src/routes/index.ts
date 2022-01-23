@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
-import apiSpec from '../../openapi.json';
 
 import QuestionController from '../controllers/questionController';
 import UserController from '../controllers/userController';
