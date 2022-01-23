@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model User {
+  id    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email String  @unique
+  password String 
+  name  String?
+  liked Question[] @relation(name:"like")
+  userType UserType @default(NORMAL)
+  until DateTime? 
+  saved Question[] @relation(name:"saved")
+  solved Question[] @relation(name:"solved")
+  totalPoint Int @default(0)
+}
+model Question {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  abstract String? 
+  content   String?
+  point Int @default(40)
+  published Boolean  @default(false)
+  likeCount Int @default(0)
+  likedBy    User[]    @relation(name:"like")
+  viewCount Int      @default(0)
+  categories Category[]
+  isPublic Boolean @default(true)
+  savedBy User[] @relation(name:"saved")
+  answers String[] 
+  correct String
+  solvedBy    User[] @relation(name:"solved")
+  type QuestionType?
+}
+model Word {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  title String
+  definiton String
+  type WordType
+}
+model Category {
+  id        Int      @id @default(autoincrement())
+  name String @unique 
+  questions Question[]
+}
+
+enum UserType {
+  AUTHOR
+  NORMAL
+}
+
+enum QuestionType {
+  WORD
+  SENTENCE
+}
+enum WordType {
+  ADVERB
+  ADJECTIVE
+  NOUN
+}
