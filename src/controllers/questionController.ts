@@ -8,13 +8,14 @@ export const addQuestionSchema = Joi.object().keys({
 });
 
 const add: RequestHandler = async (req: Request<{}, {}, AddReqBody>, res) => {
-  const { title, answers } = req.body;
+  const { title, answers, type } = req.body;
 
   const result = await prisma.question.create({
     data: {
       title,
       answers,
       correct: answers[0],
+      type,
     },
   });
 

@@ -5,6 +5,8 @@ import QuestionController from '../controllers/questionController';
 import UserController from '../controllers/userController';
 import CategoryController from '../controllers/categoryController';
 import AuthController from '../controllers/authController';
+import WordController from '../controllers/wordController';
+
 const swaggerUiOptions = {
   customCss: '.swagger-ui .topbar { display: none }',
 };
@@ -23,6 +25,13 @@ router.post('/question/answer', QuestionController.answer);
 router.put('/question/edit', QuestionController.edit);
 router.put('/question/addcategory', QuestionController.addCategory);
 router.get('/question/random', QuestionController.random);
+
+// Word routes
+router.get('/word/random', WordController.random);
+router.get('/word/all', WordController.all);
+router.post('/word/edit', WordController.edit);
+router.delete('/word/deleteall', WordController.deleteAll);
+router.post('/word/add', WordController.add);
 
 // User routes
 router.get('/user/:id', UserController.get);

@@ -39,13 +39,15 @@ model Question {
   solvedBy    User[] @relation(name:"solved")
   type QuestionType?
 }
+
 model Word {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   title String
-  definiton String
+  definition String
   type WordType
 }
+
 model Category {
   id        Int      @id @default(autoincrement())
   name String @unique 
@@ -61,8 +63,10 @@ enum QuestionType {
   WORD
   SENTENCE
 }
+
 enum WordType {
   ADVERB
   ADJECTIVE
   NOUN
+  VERB
 }

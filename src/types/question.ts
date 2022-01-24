@@ -1,6 +1,7 @@
 export interface AddReqBody {
   title: string;
   answers: Array<string>;
+  type: 'WORD' | 'SENTENCE';
 }
 export interface AnswerReqBody {
   id: number;
