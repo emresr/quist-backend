@@ -6,7 +6,7 @@ const get: RequestHandler = async (req: Request<{}, {}, GetReqBody>, res) => {
   const { id }: any = req.params;
   const result = await prisma.user.findUnique({
     where: {
-      id: 1,
+      id: Number(id),
     },
   });
 

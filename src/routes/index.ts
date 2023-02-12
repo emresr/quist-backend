@@ -5,7 +5,7 @@ import QuestionController from '../controllers/questionController';
 import UserController from '../controllers/userController';
 import CategoryController from '../controllers/categoryController';
 import AuthController from '../controllers/authController';
-import WordController from '../controllers/wordController';
+import SpotController from '../controllers/spotController';
 
 const swaggerUiOptions = {
   customCss: '.swagger-ui .topbar { display: none }',
@@ -22,16 +22,15 @@ router.get('/question/all', QuestionController.all);
 router.delete('/question/deleteall', QuestionController.deleteAll);
 router.post('/question/add', QuestionController.add);
 router.post('/question/answer', QuestionController.answer);
+router.delete('/question/delete/:id', QuestionController.delete);
 router.put('/question/edit', QuestionController.edit);
 router.put('/question/addcategory', QuestionController.addCategory);
 router.get('/question/random', QuestionController.random);
 
-// Word routes
-router.get('/word/random', WordController.random);
-router.get('/word/all', WordController.all);
-router.post('/word/edit', WordController.edit);
-router.delete('/word/deleteall', WordController.deleteAll);
-router.post('/word/add', WordController.add);
+// Spot routes
+router.post('/spot/add', SpotController.add);
+router.get('/spot/random', SpotController.random);
+router.get('/spot/all', SpotController.all);
 
 // User routes
 router.get('/user/:id', UserController.get);

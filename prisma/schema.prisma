@@ -37,21 +37,22 @@ model Question {
   answers String[] 
   correct String
   solvedBy    User[] @relation(name:"solved")
-  type QuestionType?
 }
 
-model Word {
+model Spot {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
-  title String
-  definition String
-  type WordType
+  sentence String
+  answer String
+  category Category @relation(fields: [categoryName], references: [name])
+  categoryName String
 }
 
 model Category {
   id        Int      @id @default(autoincrement())
   name String @unique 
   questions Question[]
+  spots Spot[]
 }
 
 enum UserType {
@@ -59,14 +60,3 @@ enum UserType {
   NORMAL
 }
 
-enum QuestionType {
-  WORD
-  SENTENCE
-}
-
-enum WordType {
-  ADVERB
-  ADJECTIVE
-  NOUN
-  VERB
-}

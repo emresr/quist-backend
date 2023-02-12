@@ -8,14 +8,13 @@ export const addQuestionSchema = Joi.object().keys({
 });
 
 const add: RequestHandler = async (req: Request<{}, {}, AddReqBody>, res) => {
-  const { title, answers, type } = req.body;
+  const { title, answers } = req.body;
 
   const result = await prisma.question.create({
     data: {
       title,
       answers,
       correct: answers[0],
-      type,
     },
   });
 
@@ -87,12 +86,22 @@ const random: RequestHandler = async (req: Request<{}, {}, AddReqBody>, res) => 
       id: Math.floor(Math.random() * (questionCount._all + 1)),
     },
   });
-
+  console.log(result);
   res.send(result);
 };
 
 const all: RequestHandler = async (req: Request<{}, {}, AddReqBody>, res) => {
   const result = await prisma.question.findMany({});
+
+  res.send(result);
+};
+const delete: RequestHandler = async (req: Request<{}, {}, AddReqBody>, res) => {
+ const {id}=req.body;
+  const result = await prisma.question.delete({
+    where:{
+      id:Number(id)
+    }
+  });
 
   res.send(result);
 };
@@ -124,6 +133,7 @@ export default {
   answer,
   edit,
   random,
+  delete,
   all,
   deleteAll,
   addCategory,

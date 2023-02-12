@@ -23,6 +23,7 @@ const all: RequestHandler = async (req: Request<{}, {}, GetReqBody>, res) => {
 
 const add: RequestHandler = async (req: Request<{}, {}, AddReqBody>, res) => {
   const { name }: any = req.body;
+
   const result = await prisma.category.create({
     data: {
       name,

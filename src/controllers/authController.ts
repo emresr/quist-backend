@@ -7,18 +7,40 @@ import jwt from 'jsonwebtoken';
 const APP_SECRET = process.env.APP_SECRET || 'quist';
 
 const signup: RequestHandler = async (req: Request<{}, {}, SignupReqBody>, res) => {
+ console.log("yay")
   const { email, password, name }: any = req.body;
-  const hash: string = await bcrypt.hash(password, 10);
 
-  const result = await prisma.user.create({
+const isEmailExist:any = await prisma.user.findUnique({
+  where:{
+    email:email
+  }
+}) 
+console.log(isEmailExist)
+if(!isEmailExist.id){
+  const hash: string = await bcrypt.hash(password, 10);
+try{
+   const result = await prisma.user.create({
     data: {
       email,
       password: hash,
       name,
     },
   });
+     res.send(result);
 
-  res.send(result);
+} catch {
+      return res.status(404).send({ message: 'Cant create user.' });
+
+}
+} else {
+    return res.status(404).send({message:"Email exists."})
+
+  
+}
+  
+
+
+ 
 };
 const login: RequestHandler = async (req: Request<{}, {}, SignupReqBody>, res) => {
   const { email, password }: any = req.body;
